@@ -1,0 +1,12 @@
+ticket_remittance_app/
+│
+├── app.py
+├── models.py
+├── forms.py
+├── templates/
+│   ├── index.html
+│   ├── ticket_list.html
+│   └── ticket_detail.html
+└── static/
+    ├── css/
+    └── js/
