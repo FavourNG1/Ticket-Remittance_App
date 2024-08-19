@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from models import db, Ticket
+from api import api_bp
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from models import db, User, Ticket
 from forms import TicketForm, LoginForm
@@ -7,7 +9,7 @@ import pandas as pd
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/ticket_remittance'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/ticket_remittance_db'
 db.init_app(app)
 
 login_manager = LoginManager(app)
@@ -18,6 +20,13 @@ stripe.api_key = "your_stripe_secret_key"
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+app.register_blueprint(api_bp)
+
+@app.route('/')
+def index():
+    tickets = Ticket.query.all()
+    return render_template('ticket_list.html', tickets=tickets)
 
 @app.route('/')
 @login_required
