@@ -1,0 +1,3 @@
+curl -X POST http://localhost:5000/api/tickets \
+-H "Content-Type: application/json" \
+-d '{"event_name": "Concert", "purchaser_name": "John Doe", "amount": 100.0}'
