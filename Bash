@@ -1,1 +1,1 @@
-python app.py
+pip install Flask-Login Flask-SQLAlchemy psycopg2-binary Stripe pandas
