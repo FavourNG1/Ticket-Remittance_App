@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask_restplus import Api, Resource, fields
 from models import db, Ticket
 from api import api_bp
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -11,6 +12,45 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/ticket_remittance_db'
 db.init_app(app)
+
+api = Api(app, version='1.0', title='Ticket Remittance API',
+          description='A simple Ticket Remittance API')
+
+ns = api.namespace('tickets', description='Ticket operations')
+
+ticket_model = api.model('Ticket', {
+    'event_name': fields.String(required=True, description='The event name'),
+    'purchaser_name': fields.String(description='The name of the purchaser'),
+    'amount': fields.Float(description='The ticket amount'),
+    'status': fields.String(description='The ticket status')
+})
+
+@ns.route('/')
+class TicketList(Resource):
+    @ns.doc('list_tickets')
+    @ns.marshal_list_with(ticket_model)
+    def get(self):
+        tickets = Ticket.query.all()
+        return tickets, 200
+
+    @ns.doc('create_ticket')
+    @ns.expect(ticket_model)
+    @ns.marshal_with(ticket_model, code=201)
+    def post(self):
+        data = api.payload
+        if not data or 'event_name' not in data:
+            api.abort(400, "Event name is required")
+
+        ticket = Ticket(
+            event_name=data['event_name'],
+            purchaser_name=data.get('purchaser_name', ''),
+            amount=data.get('amount', 0.0),
+            status=data.get('status', 'Pending')
+        )
+        db.session.add(ticket)
+        db.session.commit()
+
+        return ticket, 201
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
