@@ -3,11 +3,11 @@ ticket_remittance_app/
 ├── app.py
 ├── models.py
 ├── forms.py
-├── templates/
-│   ├── index.html
-│   ├── ticket_list.html
-│   ├── ticket_detail.html
-│   └── login.html
-└── static/
-    ├── css/
-    └── js/
+├── api/
+│   ├── __init__.py
+│   ├── tickets.py
+└── templates/
+    ├── index.html
+    ├── ticket_list.html
+    ├── ticket_detail.html
+    └── login.html
