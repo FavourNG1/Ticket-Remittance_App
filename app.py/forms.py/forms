@@ -1,0 +1,9 @@
+from flask_wtf import FlaskForm
+from wtforms import StringField, FloatField, SubmitField
+from wtforms.validators import DataRequired
+
+class TicketForm(FlaskForm):
+    event_name = StringField('Event Name', validators=[DataRequired()])
+    purchaser_name = StringField('Purchaser Name', validators=[DataRequired()])
+    amount = FloatField('Amount', validators=[DataRequired()])
+    submit = SubmitField('Create Ticket')
