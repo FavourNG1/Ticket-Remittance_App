@@ -6,7 +6,8 @@ ticket_remittance_app/
 ├── templates/
 │   ├── index.html
 │   ├── ticket_list.html
-│   └── ticket_detail.html
+│   ├── ticket_detail.html
+│   └── login.html
 └── static/
     ├── css/
     └── js/
