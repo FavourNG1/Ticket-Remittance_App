@@ -25,6 +25,10 @@ ticket_model = api.model('Ticket', {
     'status': fields.String(description='The ticket status')
 })
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @ns.route('/')
 class TicketList(Resource):
     @ns.doc('list_tickets')
