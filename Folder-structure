@@ -11,3 +11,22 @@ ticket_remittance_app/
     ├── ticket_list.html
     ├── ticket_detail.html
     └── login.html
+
+ticket_remittance_app/
+│
+├── app.py
+├── models.py
+├── config.py
+├── api/
+│   ├── __init__.py
+│   ├── tickets.py
+│   ├── remittance.py
+│   ├── payment.py
+│   └── users.py
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── script.js
+└── templates/
+    └── index.html
