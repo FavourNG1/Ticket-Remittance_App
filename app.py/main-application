@@ -9,6 +9,7 @@ import stripe
 import pandas as pd
 
 app = Flask(__name__)
+app.config.from_object(config['development'])  # or 'testing', 'production'
 app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/ticket_remittance_db'
 db.init_app(app)
