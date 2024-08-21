@@ -1,3 +1,0 @@
-curl -X PUT http://localhost:5000/api/tickets/1 \
--H "Content-Type: application/json" \
--d '{"status": "Paid"}'
